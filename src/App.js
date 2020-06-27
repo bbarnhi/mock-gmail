@@ -102,39 +102,33 @@ class Email extends React.Component{
     super(props)
     console.log("Made it to ClassBuilder")
     this.state = {
-      todos: []
+      email: []
     }
+    this.state.email = null; // using the test data to see if this works,. 
+    // things to fetch
+    this.sender = null;
+    this.recipient = null;
+    this.subject = null;
+    this.message = null;
+    this.date = null;
+    this.id = null;  //primary/unique key
+    //  call fetch?
     this.fetchEmails = this.fetchEmails.bind(this)  //why is this needed?
-    this.fetchEmails()
-
-    //this.state.email = null; // using the test data to see if this works,. 
-//     // things to fetch
-//     this.sender = null;
-//     this.recipient = null;
-//     this.subject = null;
-//     this.message = null;
-//     this.date = null;
-//     this.id = null;  //primary key
-//     //  call fetch?
-//     this.fetchEmails = this.fetchEmails.bind(this)  //why is this needed?
-//     this.fetchEmails()
+    this.fetchEmails() //force call the fetchEmails function
    }
 
- async fetchEmails(){  
-  console.log("Made it to fetchEmails function ")
-  await fetch('http://localhost:3001/emails') ///THIS BREAKS
-  //fetch('https://api.randomuser.me/') // THIS WORKS
-  .then(response => response.json())
-  .then(data => console.log(data));
-  //console.log(data)
-  // .then((data) => {
-  //   this.setState({ todos: data })
-  //   console.log(this.state.todos)
-  //   this.city = todos.results.email;
-  //})
-  //.catch(console.log)
-
-}
+  async fetchEmails(){  
+      console.log("Made it to fetchEmails function ")
+      await fetch('http://localhost:3001/emails') ///THIS BREAKS
+      //fetch('https://api.randomuser.me/') // THIS WORKS
+      .then(response => response.json())
+      //.then(data => console.log(data));
+      .then((data) => {
+          ({ email: data })
+        console.log(this)
+      })
+      .catch(console.log)
+  }
 
 //   console.log("Made it to fetchEmails function ")
 //   // Magic youTube example setup
@@ -154,21 +148,21 @@ class Email extends React.Component{
 //   //whats different in the data sets.  Emails is an Array of objects.   Randomuser is just 1 object. 
 
 
-// //   //console.log("response: " + response)
-// // //  let data = await response.json();
-// //   //let data = response.json();
-// //   // should populate data with an Array of 19 Objects each with 6 properties 
-// //   console.log("data array: " + this.data)
-// //   console.log("data array: " + this.sender)
-// //   // set this data for incoming emails
-// //   // this.sender = data.sender;
-// //   // this.recipient = data.recipient;
-// //   // this.subject = data.subject;
-// //   // this.message = data.message;
-// //   // this.date = data.date;
-// //   // this.id = data.id;
-// //   console.log(this.sender)
-// }
+  // console.log("response: " + response)
+  // let data = await response.json();
+  // let data = response.json();
+  // should populate data with an Array of 19 Objects each with 6 properties 
+  // console.log("data array: " + this.data)
+  // console.log("data array: " + this.sender)
+  // set this data for incoming emails
+  // this.sender = data.sender;
+  // this.recipient = data.recipient;
+  // this.subject = data.subject;
+  // this.message = data.message;
+  // this.date = data.date;
+  // this.id = data.id;
+  // console.log(this.sender)
+
 
 // // Onlick filter returned emails based on this.sender
 // filterSender(event){
@@ -212,27 +206,27 @@ class Email extends React.Component{
 // Item 1 - built from http://localhost:3001/emails.id[1]
 /////////////////////////////////////////////////////
 
-render() {
-  console.log("Made it to Render function")
-  return (
-    <div>
-      <div> <h1>Barnhill Email Systems </h1>
-      <div className="searchBar"></div>
-      <div className="mainEmail"></div>
-
+  render() {
+    console.log("Made it to Render function")
+    return (
       <div>
-        <div className="col1 sender" onClick={this.filterSender}>Sender: {this.city}</div>
-        <div className="col2 subject" onClick={this.openEmail}>Subject: {this.subject}</div>
-        <div className="col3 date">Date: {this.date}</div>
-      </div>
-      <div className="newEmail">
-        <button onClick={this.newEmail}>Compose</button>
-      </div>
+        <div> <h1>Barnhill Email Systems </h1>
+        <div className="searchBar"></div>
+        <div className="mainEmail"></div>
 
+        <div>
+          <div className="col1 sender" onClick={this.filterSender}>Sender: {this.city}</div>
+          <div className="col2 subject" onClick={this.openEmail}>Subject: {this.subject}</div>
+          <div className="col3 date">Date: {this.date}</div>
+        </div>
+        <div className="newEmail">
+          <button onClick={this.newEmail}>Compose</button>
+        </div>
+
+        </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 }
 export default Email;
 
